@@ -1,12 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-// import {
-//     createConnection,
-//     onReceiveMessage,
-//     sendMessage as sendMessageToServer,
-//     stopConnection
-// } from '@/services/signalr.service';
+import {
+    createConnection,
+    onReceiveMessage,
+    sendMessage as sendMessageToServer,
+    stopConnection
+} from '@/services/signalr.service';
 
 export default function SignalRClient() {
     const [input, setInput] = useState('');
@@ -14,23 +14,23 @@ export default function SignalRClient() {
     const bottomRef = useRef<HTMLDivElement>(null);
     const username = 'PizzahutVN';
 
-    // useEffect(() => {
-    //     const connection = createConnection();
+    useEffect(() => {
+        const connection = createConnection();
 
-    //     connection
-    //         .start()
-    //         .then(() => {
-    //             console.log('Connected to SignalR');
-    //             onReceiveMessage((user, message) => {
-    //                 setMessages((prev) => [...prev, { user, message }]);
-    //             });
-    //         })
-    //         .catch((err) => console.error('SignalR connection error:', err));
+        connection
+            .start()
+            .then(() => {
+                console.log('Connected to SignalR');
+                onReceiveMessage((user, message) => {
+                    setMessages((prev) => [...prev, { user, message }]);
+                });
+            })
+            .catch((err) => console.error('SignalR connection error:', err));
 
-    //     return () => {
-    //         stopConnection();
-    //     };
-    // }, []);
+        return () => {
+            stopConnection();
+        };
+    }, []);
 
     useEffect(() => {
         // Auto scroll to latest message
@@ -39,8 +39,8 @@ export default function SignalRClient() {
 
     const handleSend = async () => {
         if (!input.trim()) return;
-        // await sendMessageToServer(username, input.trim());
-        // setMessages((prev) => [...prev, { user: username, message: input.trim() }]);
+        await sendMessageToServer(username, input.trim());
+        setMessages((prev) => [...prev, { user: username, message: input.trim() }]);
         setInput('');
     };
 
