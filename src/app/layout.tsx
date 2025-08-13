@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SignalR Realtime Chat",
-  description: "A simple realtime chat app built with Next.js and SignalR",
+  title: "SignalR Realtime",
+  description: "A simple realtime app built with Next.js and SignalR",
 };
 
 export default function RootLayout({
